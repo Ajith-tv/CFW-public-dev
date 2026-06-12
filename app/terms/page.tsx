@@ -16,7 +16,7 @@ export default function Terms() {
       <p>
         Welcome to {site.name} (&quot;Coffee After Work&quot;, &quot;CAW&quot;,
         &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). These Terms &amp;
-        Conditions govern your use of the {site.name} website, mobile
+        Conditions govern your use of the Coffee After Work website, mobile
         applications, and related services (collectively, the
         &quot;Platform&quot;).
       </p>
