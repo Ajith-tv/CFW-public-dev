@@ -29,8 +29,8 @@ export function Word({
   const y = useTransform(progress, [start, end], ['110%', '0%'])
   const opacity = useTransform(progress, [start, end], [0, 1])
   return (
-    <span className="mr-[0.25em] inline-block overflow-hidden py-1 align-bottom">
-      <motion.span style={hydrated ? { y, opacity } : undefined} className="inline-block">
+    <span className="mr-[0.25em] inline-block overflow-hidden pt-1 pr-[0.08em] pb-[0.3em] align-bottom">
+      <motion.span style={hydrated ? { y, opacity } : undefined} className="inline-block leading-tight">
         {children}
       </motion.span>
     </span>
