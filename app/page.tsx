@@ -173,7 +173,7 @@ export default function Home() {
                 Built for meaningful connections.
               </h2>
               <p className="mx-auto max-w-xl text-cream/80 text-sm sm:text-base leading-relaxed">
-                Connect with professionals who are looking for something real. Join a community of professionals who value authenticity, meaningful conversations, and relationships built on mutual respect and shared aspirations.
+                Connect with professionals who are looking for something real. Join a community of professionals who value authenticity, meaningful conversations, and relationships built on mutual respect and{' '}{'shared\u00A0aspirations.'}
               </p>
               <StoreButtons />
             </div>
