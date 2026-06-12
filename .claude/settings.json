@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx next *)",
+      "PowerShell(npm install motion)",
+      "PowerShell(npx tsc --noEmit)",
+      "PowerShell(Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\('d:\\\\dating-app\\\\nextwebsite\\\\public\\\\phonemockup.png'\\); \"$\\($img.Width\\) x $\\($img.Height\\)\"; $img.Dispose\\(\\))",
+      "Bash(ls \"D:/dating-app/dating-app\" 2>/dev/null | head -50)",
+      "Read(//d/dating-app/dating-app/**)",
+      "PowerShell(npm run build)",
+      "PowerShell(git remote add origin https://github.com/Ajith-tv/CoffeeAfterWork-website.git)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\ajaji\\Downloads"
+    ]
+  }
+}

@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Brand palette — sourced from the Coffee After Work mobile app
+ * (dating-app/src/constants/theme.ts)
+ */
+@theme {
+  --color-brand: #9a0002; /* primary deep red */
+  --color-brand-dark: #6e0001;
+  --color-brand-light: #c4373a;
+  --color-cream: #f0e7c8; /* secondary cream */
+  --color-cream-soft: #f8f3e3;
+  --color-ink: #1b1717; /* text / dark background */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out 0.5s ease-in-out forwards;
+}
+
+/* Splash logo: simple smooth fade-in, nothing else */
+@keyframes logo-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-splash-logo {
+  opacity: 0;
+  animation: logo-in 1.2s ease-out 500ms forwards;
+}
+
+/* Name reveal: wrapper widens so the heart glides aside... */
+@keyframes expand-name {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 16rem;
+  }
+}
+
+.animate-expand-name {
+  max-width: 0;
+  animation: expand-name 1s cubic-bezier(0.65, 0, 0.35, 1) 2100ms forwards;
+}
+
+/* ...while the text slides out from behind it */
+@keyframes reveal-name {
+  from {
+    opacity: 0;
+    transform: translateX(-1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-reveal-name {
+  opacity: 0;
+  animation: reveal-name 1s cubic-bezier(0.65, 0, 0.35, 1) 2250ms forwards;
+}
+
+/* Soft floating animation for decorative bubbles */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 9s ease-in-out infinite;
 }
