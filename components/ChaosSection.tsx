@@ -46,7 +46,7 @@ export default function ChaosSection() {
   return (
     <section ref={ref} className="relative h-[170vh] w-full bg-white">
       <div className="sticky top-0 flex h-svh items-center">
-        <div className="mx-auto grid w-full max-w-6xl items-start gap-10 px-5 sm:px-10 lg:grid-cols-2 lg:gap-20">
+        <div className="mx-auto grid w-full max-w-7xl items-start gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20">
           <h2 className="flex flex-wrap text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight text-ink">
             {WORDS.map((word, i) => (
               <Word

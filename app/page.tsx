@@ -102,27 +102,27 @@ export default function Home() {
         {/* Full Viewport Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/date_image_wide.png"
+            src="/date_image_hero.png"
             alt="Dating app built for working professionals"
             fill
             priority
-            className="object-cover grayscale"
+            className="object-cover"
           />
-          {/* Bottom-heavy dark gradient overlay to ensure text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent z-10" />
+          {/* Bottom-to-top dark gradient overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent z-10" />
         </div>
 
         {/* Text Overlay: Aligned Bottom-Left */}
-        <div className="relative z-20 max-w-4xl px-6 pb-16 sm:px-12 sm:pb-24 md:px-20 md:pb-28">
+        <div className="relative z-20 mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 sm:pb-24 md:pb-28">
           <motion.h1
             initial={{ opacity: 0, y: 32 }}
             animate={splash === 'hidden' ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.6, ease: easeOut, delay: 0.5 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-lg leading-[1.15] max-w-2xl text-left select-text"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.15] max-w-2xl text-left select-text"
           >
             Dating app <br />
             built for{' '}
-            <span className="text-brand-light">working professionals</span>
+            <span className="text-brand">working professionals</span>
           </motion.h1>
         </div>
       </section>
@@ -130,7 +130,7 @@ export default function Home() {
       {/* Dating, without the chaos — pinned scroll-scrubbed statement */}
       <ChaosSection />
 
-      {/* Why we exist — heading + values with app phone mockup */}
+      {/* Why we exist — heading + values, scroll-scrubbed */}
       <WhyWeExist />
 
       {/* How it works — pinned, scroll-scrubbed deep red editorial panel */}
@@ -142,7 +142,7 @@ export default function Home() {
       {/* Footer CTA */}
       <section
         id="download"
-        className="mx-auto flex min-h-svh max-w-5xl items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-20"
+        className="mx-auto flex min-h-svh max-w-7xl items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-20"
       >
         <ScrollReveal
           direction="up"

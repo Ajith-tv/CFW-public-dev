@@ -1,49 +1,40 @@
 'use client'
 
 /*
- * "Why we exist" — full-screen two-column statement section.
- * Left: heading + three value props as a quiet divided list.
- * Right: phone mockup of the actual app UI.
- *
- * Entrance is scroll-scrubbed (GSAP ScrollTrigger style): as the section
- * scrolls into view the copy slides in from the left and the phone from
- * the right, mapped directly to scroll progress so it rewinds when you
- * scroll back up. The phone also keeps a gentle counter-scroll drift.
+ * Why we exist — one pinned, scroll-scrubbed section (GSAP ScrollTrigger
+ * pin+scrub style) in three phases:
+ *   1. The bold heading is visible (dim) the moment the section enters;
+ *      scrolling lights its words up one by one to full strength.
+ *   2. Continued scrolling lifts the lit heading up and fades it away.
+ *   3. The three value lines scrub in one by one in its place.
+ * Scrolling back up rewinds everything.
  */
 
 import { useRef, type ReactNode } from 'react'
-import Image from 'next/image'
-import { motion, useScroll, useTransform, useSpring } from 'motion/react'
+import { useScroll, useSpring, useTransform, motion } from 'motion/react'
+import { LitWord, Reveal } from '@/components/ScrollScrub'
 import { useHydrated } from '@/lib/useHydrated'
 
-type Progress = ReturnType<typeof useSpring>
+// Heading split into lines of words so each word can light up on its
+// own slice of scroll progress.
+const LINES: ReactNode[][] = [
+  ['Modern', 'professionals'],
+  [
+    'deserve',
+    <span key="better" className="italic text-brand">
+      better
+    </span>,
+    'ways',
+  ],
+  [
+    'to',
+    <span key="connect">
+      connect<span className="text-brand">.</span>
+    </span>,
+  ],
+]
 
-// A block sliding in horizontally over its slice of the section's progress
-function SlideIn({
-  progress,
-  start,
-  end,
-  from,
-  children,
-  className,
-}: {
-  progress: Progress
-  start: number
-  end: number
-  /** px offset to slide in from (negative = from left, positive = from right) */
-  from: number
-  children: ReactNode
-  className?: string
-}) {
-  const hydrated = useHydrated()
-  const x = useTransform(progress, [start, end], [from, 0])
-  const opacity = useTransform(progress, [start, end], [0, 1])
-  return (
-    <motion.div style={hydrated ? { x, opacity } : undefined} className={className}>
-      {children}
-    </motion.div>
-  )
-}
+const WORD_COUNT = LINES.reduce((n, line) => n + line.length, 0)
 
 const values = [
   {
@@ -60,89 +51,105 @@ const values = [
   },
 ]
 
+// Progress phases: words light up, heading exits, values arrive. The
+// values finish by VALUES_END so they sit pinned, centered on screen,
+// before the next section's red panel starts sliding over (~0.7 of
+// progress, given its -100svh pull-up).
+const LIGHT_START = 0.04
+const LIGHT_END = 0.34
+const EXIT_START = 0.36
+const EXIT_END = 0.46
+const VALUES_START = 0.48
+const VALUES_END = 0.68
+
 export default function WhyWeExist() {
   const ref = useRef<HTMLElement>(null)
   const hydrated = useHydrated()
 
-  // Entrance scrub: 0 when the section's top enters the viewport bottom,
-  // 1 once it has risen to ~the upper third of the screen.
-  const { scrollYProgress: enterProgress } = useScroll({
+  // Starts counting as the section enters the viewport (heading already
+  // dimly visible) and reaches 1 when the section unpins.
+  const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start 0.95', 'start 0.3'],
+    offset: ['start 0.9', 'end end'],
   })
-  const progress = useSpring(enterProgress, {
-    stiffness: 120,
-    damping: 24,
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 170,
+    damping: 26,
     mass: 0.4,
   })
 
-  // Gentle counter-scroll drift on the phone while the section passes through
-  const { scrollYProgress: throughProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  })
-  const smooth = useSpring(throughProgress, { stiffness: 120, damping: 24, mass: 0.4 })
-  const phoneY = useTransform(smooth, [0, 1], [60, -60])
-  const phoneX = useTransform(progress, [0.1, 0.7], [120, 0])
-  const phoneOpacity = useTransform(progress, [0.1, 0.7], [0, 1])
+  const wordSpan = (LIGHT_END - LIGHT_START) / WORD_COUNT
+
+  // Phase 2 — the lit heading drifts up and fades away
+  const headingY = useTransform(progress, [EXIT_START, EXIT_END], [0, -120])
+  const headingOpacity = useTransform(progress, [EXIT_START, EXIT_END], [1, 0])
+
+  // Phase 3 — values reveal one by one as the heading clears, the last
+  // one landing exactly at VALUES_END
+  const valueStagger = (VALUES_END - VALUES_START) / (values.length + 0.4)
+
+  let wordIndex = 0
 
   return (
-    <section
-      ref={ref}
-      className="flex min-h-svh items-center bg-[#FDFBF7] py-20 sm:py-24 overflow-hidden"
-    >
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-14 px-5 sm:px-10 lg:grid-cols-2 lg:gap-20">
-        {/* Copy — slides in from the left */}
-        <div>
-          <SlideIn progress={progress} start={0} end={0.5} from={-90}>
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-brand">
+    <section ref={ref} className="relative h-[340vh] w-full bg-[#FDFBF7]">
+      <div className="sticky top-0 flex h-svh items-center overflow-hidden">
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6">
+          {/* Phase 1 + 2: heading lights up, then lifts away */}
+          <motion.div
+            style={hydrated ? { y: headingY, opacity: headingOpacity } : undefined}
+            className="text-center"
+          >
+            <span className="inline-block text-xs font-semibold uppercase tracking-[0.25em] text-brand">
               Why we exist
             </span>
-            <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink leading-[1.15]">
-              Modern professionals deserve{' '}
-              <span className="italic text-brand">better</span> ways to connect.
-            </h2>
-          </SlideIn>
 
-          <div className="mt-10 divide-y divide-stone-200/80 border-t border-stone-200/80">
-            {values.map((v, i) => (
-              <SlideIn
-                key={v.title}
-                progress={progress}
-                start={0.15 + i * 0.12}
-                end={0.65 + i * 0.12}
-                from={-70}
-                className="py-6"
-              >
-                <div className="flex items-baseline gap-5">
-                  <span className="text-xs font-mono font-semibold text-brand/60">
+            <h2 className="mx-auto mt-4 max-w-4xl text-3xl font-bold tracking-tight text-ink leading-[1.2] sm:mt-6 sm:text-5xl md:text-6xl">
+              {LINES.map((line, i) => (
+                <span key={i} className="block">
+                  {line.map((word, j) => {
+                    const start = LIGHT_START + wordIndex * wordSpan
+                    wordIndex += 1
+                    return (
+                      <LitWord
+                        key={j}
+                        progress={progress}
+                        start={start}
+                        end={start + wordSpan * 1.6}
+                      >
+                        {word}
+                      </LitWord>
+                    )
+                  })}
+                </span>
+              ))}
+            </h2>
+          </motion.div>
+
+          {/* Phase 3: value lines arrive one by one where the heading was */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 sm:px-6">
+            <div className="grid w-full gap-5 sm:grid-cols-3 sm:gap-10">
+              {values.map((v, i) => (
+                <Reveal
+                  key={v.title}
+                  progress={progress}
+                  start={VALUES_START + i * valueStagger}
+                  end={VALUES_START + (i + 1.4) * valueStagger}
+                  className="border-t border-stone-200/80 pt-4 sm:pt-8"
+                >
+                  <span className="text-xs font-mono font-semibold text-brand/60 sm:text-sm">
                     0{i + 1}
                   </span>
-                  <div>
-                    <h3 className="text-lg font-semibold text-ink">{v.title}</h3>
-                    <p className="mt-1 text-sm sm:text-base text-stone-600 leading-relaxed">
-                      {v.body}
-                    </p>
-                  </div>
-                </div>
-              </SlideIn>
-            ))}
+                  <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink sm:mt-5 sm:text-2xl">
+                    {v.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-stone-600 leading-relaxed sm:mt-3 sm:text-base">
+                    {v.body}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* Phone mockup — slides in from the right, then drifts with scroll */}
-        <motion.div
-          style={hydrated ? { x: phoneX, y: phoneY, opacity: phoneOpacity } : undefined}
-          className="flex justify-center lg:justify-end"
-        >
-          <Image
-            src="/phonemockup.png"
-            alt="Coffee After Work app showing a profile card"
-            width={460}
-            height={715}
-            className="w-65 sm:w-80 h-auto drop-shadow-2xl"
-          />
-        </motion.div>
       </div>
     </section>
   )

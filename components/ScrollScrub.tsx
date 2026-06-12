@@ -37,6 +37,31 @@ export function Word({
   )
 }
 
+// One word of a heading, always visible but dim, lighting up to full
+// strength over its slice of progress (GSAP text-fill scrub style)
+export function LitWord({
+  progress,
+  start,
+  end,
+  children,
+}: {
+  progress: Progress
+  start: number
+  end: number
+  children: ReactNode
+}) {
+  const hydrated = useHydrated()
+  const opacity = useTransform(progress, [start, end], [0.14, 1])
+  return (
+    <motion.span
+      style={hydrated ? { opacity } : undefined}
+      className="mr-[0.25em] inline-block"
+    >
+      {children}
+    </motion.span>
+  )
+}
+
 // A block fading up over its slice of progress
 export function Reveal({
   progress,

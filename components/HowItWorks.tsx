@@ -53,9 +53,15 @@ export default function HowItWorks() {
   const stepSpan = 0.5 / STEPS.length
 
   return (
-    <section id="how-it-works" ref={ref} className="relative h-[220vh] w-full bg-brand">
+    // Pulled up one viewport (mt-[-100svh]) so it slides over the pinned
+    // "Why we exist" section, covering it before pinning itself.
+    <section
+      id="how-it-works"
+      ref={ref}
+      className="relative z-10 mt-[-100svh] h-[220vh] w-full rounded-t-[2.5rem] bg-brand sm:rounded-t-[3rem]"
+    >
       <div className="sticky top-0 flex h-svh items-center overflow-hidden">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-12">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
           <Reveal progress={progress} start={0} end={0.08}>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cream/60">
               Our Matchmaking Flow

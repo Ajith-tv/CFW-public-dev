@@ -4,7 +4,7 @@ import { site } from '@/lib/site'
 export default function Footer() {
   return (
     <footer className="border-t border-stone-200 bg-cream-soft/60">
-      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-4 py-8 text-center text-sm text-stone-500 sm:flex-row sm:px-6 sm:text-left">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-center text-sm text-stone-500 sm:flex-row sm:px-6 sm:text-left">
         <p>
           © {new Date().getFullYear()} {site.legalEntity}. All rights reserved.
         </p>

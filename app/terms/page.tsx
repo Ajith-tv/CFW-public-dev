@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import LegalPage, { Section, SubSection, List } from '@/components/LegalPage'
+import LegalPage, { Section, List } from '@/components/LegalPage'
 import { site, formatDate } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -10,343 +10,415 @@ export const metadata: Metadata = {
 export default function Terms() {
   return (
     <LegalPage
-      title="Terms &amp; Conditions of Use"
+      title="Terms &amp; Conditions"
       lastUpdated={formatDate(site.termsLastUpdated)}
     >
       <p>
-        Welcome to {site.name}&rsquo;s Terms and Conditions of Use (these
-        &quot;Terms&quot;). This is a contract between you and {site.name}{' '}
-        (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). Please read these
-        Terms carefully before using the {site.name} application (the
-        &quot;App&quot;).
+        Welcome to {site.name} (&quot;Coffee After Work&quot;, &quot;CAW&quot;,
+        &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). These Terms &amp;
+        Conditions govern your use of the {site.name} website, mobile
+        applications, and related services (collectively, the
+        &quot;Platform&quot;).
       </p>
       <p>
-        By accessing or using the App, you agree to be bound by these Terms, our
-        Privacy Policy, and our Community Guidelines.
+        By accessing or using {site.name}, you agree to be bound by these
+        Terms. If you do not agree with any part of these Terms, please
+        discontinue use of the Platform immediately.
       </p>
 
-      <Section heading="1. Coffee After Work Rules">
+      <Section heading="1. Acceptance of Terms">
         <p>
-          Before you can use the App, you must register for an account
-          (&quot;Account&quot;).
+          {site.name} reserves the right to update, modify, or revise these
+          Terms at any time. Changes may be made to:
         </p>
-        <p>To create an Account, you must:</p>
         <List
           items={[
-            'Be at least 18 years old or the age of majority in your jurisdiction;',
-            'Be legally permitted to use the App; and',
-            <>
-              Use a <strong>valid, approved corporate email address</strong> for
-              verification.
-            </>,
-          ]}
-        />
-        <p>
-          We monitor for compliance and reserve the right to suspend, restrict,
-          or terminate any Account that violates these Terms.
-        </p>
-        <p>You may not:</p>
-        <List
-          items={[
-            'Use another person’s account;',
-            'Share your account.',
-            'Create accounts using false or unauthorized credentials;',
-            'Attempt to bypass the corporate verification process.',
-          ]}
-        />
-        <p>You are responsible for all activity under your Account.</p>
-        <p>
-          You may delete your Account at any time via the App. Some information
-          may be retained temporarily as described in our Privacy Policy.
-        </p>
-      </Section>
-
-      <Section heading="2. Corporate Email Verification">
-        <p>
-          {site.name} is designed as a professional and trusted platform, and
-          access is restricted to users with approved corporate email domains.
-        </p>
-
-        <SubSection heading="2.1 Eligibility via Corporate Email">
-          <p>To access the App, you must:</p>
-          <List
-            items={[
-              <>
-                Register using a{' '}
-                <strong>corporate email address issued by your employer</strong>
-                ; and
-              </>,
-              'Complete domain-based verification.',
-            ]}
-          />
-          <p>
-            Personal email providers (e.g., Gmail, Yahoo) are not permitted.
-          </p>
-        </SubSection>
-
-        <SubSection heading="2.2 Approved Domains">
-          <p>
-            Only users from <strong>approved company domains</strong> may access
-            the App.
-          </p>
-          <p>If your company domain is not supported:</p>
-          <List
-            items={[
-              'You will not be able to register.',
-              'You may request access for your company.',
-            ]}
-          />
-          <p>We may approve new domains based on:</p>
-          <List
-            items={[
-              'User demand',
-              'Company credibility',
-              'Platform safety and integrity',
-            ]}
-          />
-          <p>We reserve full discretion over which domains are accepted.</p>
-        </SubSection>
-
-        <SubSection heading="2.3 Verification Rights">
-          <p>We reserve the right to:</p>
-          <List
-            items={[
-              'Verify your email domain and associated employment',
-              'Request additional verification at any time',
-              <>
-                Restrict or terminate accounts using:
-                <List
-                  items={[
-                    'False credentials',
-                    'Unauthorized access',
-                    'Manipulation of verification systems',
-                  ]}
-                />
-              </>,
-            ]}
-          />
-        </SubSection>
-
-        <SubSection heading="2.4 Loss of Access">
-          <p>If you lose access to your corporate email:</p>
-          <List
-            items={[
-              'You may be required to re-verify your account.',
-              'We may limit or suspend your access to the App.',
-            ]}
-          />
-        </SubSection>
-      </Section>
-
-      <Section heading="3. Types of Content">
-        <p>There are three types of content on the App:</p>
-        <List
-          items={[
-            <>Content you upload (&quot;Your Content&quot;)</>,
-            <>Content provided by other users (&quot;Member Content&quot;)</>,
-            <>Content provided by {site.name} (&quot;Our Content&quot;)</>,
-          ]}
-        />
-        <h3 className="pt-2 text-base font-semibold text-ink">Your Content</h3>
-        <p>
-          You are responsible for Your Content and must ensure it complies with
-          our Community Guidelines.
-        </p>
-        <p>You must not post content that:</p>
-        <List
-          items={[
-            'Is illegal or promotes illegal activity',
-            'Is abusive, offensive, or discriminatory',
-            'Infringes third-party rights',
-            'Contains spam or commercial promotion',
-            'Misrepresents identity or intent',
-          ]}
-        />
-        <p>
-          By uploading content, you grant {site.name} a{' '}
-          <strong>non-exclusive, worldwide, royalty-free license</strong> to
-          use, display, and distribute such content in connection with the App.
-        </p>
-        <p>
-          We reserve the right to remove or restrict any content at our
-          discretion.
-        </p>
-      </Section>
-
-      <Section heading="4. Restrictions on Use">
-        <p>You agree to:</p>
-        <List
-          items={[
+            'Reflect new features or services',
+            'Improve user safety',
             'Comply with applicable laws',
-            'Use accurate and truthful information',
-            'Engage respectfully with other users',
-          ]}
-        />
-        <p>You agree that you will not:</p>
-        <List
-          items={[
-            'Harass, abuse, or harm other users',
-            'Misrepresent identity, employment, or intentions',
-            'Use the App for scams, spam, or commercial purposes',
-            'Attempt to access or interfere with our systems',
+            'Improve business operations',
           ]}
         />
         <p>
-          We may investigate violations and take appropriate action, including
-          termination.
+          The latest version will always be available on our website and mobile
+          applications. Continued use of the Platform after changes are
+          published constitutes acceptance of the revised Terms.
         </p>
       </Section>
 
-      <Section heading="5. Purpose of the Platform">
-        <p>{site.name} is intended to facilitate:</p>
+      <Section heading="2. About Coffee After Work">
+        <p>
+          {site.name} is a professional social and relationship platform
+          designed to help working professionals build meaningful connections
+          outside of work.
+        </p>
+        <p>
+          {site.name} is not a matrimonial service and does not guarantee
+          romantic matches, friendships, relationships, or successful outcomes
+          between users.
+        </p>
+      </Section>
+
+      <Section heading="3. Eligibility">
+        <p>
+          To create and maintain an account on {site.name}, you represent and
+          warrant that:
+        </p>
         <List
           items={[
-            'Meaningful, long-term relationships',
-            'Value-driven connections among working professionals',
+            'You are at least 21 years old.',
+            'You are legally capable of entering into binding agreements.',
+            'You are employed, self-employed, or otherwise professionally engaged.',
+            'You provide accurate and truthful information.',
+            'You are not prohibited from using our services under applicable laws.',
+            `You have not been previously removed or banned from ${site.name}.`,
+            'You do not have any convictions related to sexual offenses, violent crimes, harassment, stalking, or similar serious offenses.',
+            'You will comply with all applicable local, state, national, and international laws.',
           ]}
         />
         <p>
-          Use of the App for casual, deceptive, or non-genuine purposes is
-          prohibited.
+          {site.name} reserves the right to suspend, verify, restrict, or
+          permanently terminate any account that does not meet these
+          requirements.
         </p>
       </Section>
 
-      <Section heading="6. Safety and User Interactions">
-        <p>We aim to provide a safe environment but do not guarantee:</p>
-        <List
-          items={[
-            'The conduct of users',
-            'The accuracy of user-provided information',
-          ]}
-        />
-        <p>You are solely responsible for your interactions with other users.</p>
+      <Section heading="4. Corporate Email Verification">
         <p>
-          We may review profiles, content, and communications to enforce these
-          Terms.
+          To maintain the integrity of the platform, {site.name} may require
+          verification using a valid corporate or company-issued email address.
         </p>
-      </Section>
-
-      <Section heading="7. Privacy">
+        <p>By providing a corporate email address, you acknowledge that:</p>
+        <List
+          items={[
+            'The corporate email is used solely for verification purposes.',
+            'Verification does not imply endorsement by your employer.',
+            `Your employer has no affiliation with ${site.name} unless explicitly stated.`,
+            `${site.name} will never publicly display your corporate email address.`,
+          ]}
+        />
         <p>
-          We collect and process personal data in accordance with our Privacy
-          Policy.
+          Failure to successfully complete verification may limit access to
+          certain features.
         </p>
-        <p>By using the App, you consent to:</p>
+      </Section>
+
+      <Section heading="5. Registration &amp; Account">
+        <p>When creating an account, you may be asked to provide:</p>
         <List
           items={[
-            'Data collection and processing',
-            'Use of matching algorithms',
+            'Full name',
+            'Date of birth',
+            'Gender',
+            'Profile photographs',
+            'Occupation',
+            'Company name',
+            'City',
+            'Personal email address',
+            'Corporate email address for verification',
+            'Other profile information',
+          ]}
+        />
+        <p>You agree that:</p>
+        <List
+          items={[
+            'All information provided is accurate and current.',
+            'You will maintain only one active account unless otherwise approved.',
+            'You are solely responsible for maintaining the confidentiality of your login credentials.',
+            'You accept responsibility for all activity conducted through your account.',
           ]}
         />
       </Section>
 
-      <Section heading="8. Payments and Subscriptions">
-        <p>We may offer paid features (&quot;Premium Services&quot;).</p>
-        <p>By purchasing:</p>
-        <List
-          items={[
-            'You agree to applicable fees',
-            'Subscriptions may auto-renew unless canceled',
-            'Payments may be processed via third parties',
-          ]}
-        />
-        <p>Deleting the App does not cancel subscriptions.</p>
-      </Section>
-
-      <Section heading="9. Virtual Features">
-        <p>Virtual features may be offered and:</p>
-        <List
-          items={[
-            'Have no real-world value',
-            'Are non-transferable',
-            'Are non-refundable (unless required by law)',
-          ]}
-        />
-        <p>We may modify or discontinue them at any time.</p>
-      </Section>
-
-      <Section heading="10. Disclaimer">
+      <Section heading="6. Community Standards">
         <p>
-          The App is provided &quot;as is&quot; and &quot;as available.&quot;
+          All users are expected to behave respectfully and professionally.
         </p>
-        <p>We do not guarantee:</p>
+        <p>You agree that you will NOT:</p>
+        <List
+          items={[
+            'Harass, threaten, intimidate, stalk, or abuse others.',
+            'Share hateful, discriminatory, or offensive content.',
+            'Use the Platform for escorting, solicitation, or adult services.',
+            'Impersonate another person.',
+            'Use fake photographs or misleading information.',
+            'Promote businesses, products, MLM schemes, or commercial services.',
+            'Send spam messages.',
+            'Request money or financial assistance from other users.',
+            'Share malware, viruses, or harmful code.',
+            'Publish content that violates intellectual property rights.',
+            'Attempt to scrape, copy, reverse engineer, or exploit the Platform.',
+          ]}
+        />
+        <p>
+          Repeated violations may result in immediate suspension or permanent
+          account removal.
+        </p>
+      </Section>
+
+      <Section heading="7. User Safety">
+        <p>
+          {site.name} encourages users to exercise caution when interacting
+          with others.
+        </p>
+        <p>You acknowledge that:</p>
+        <List
+          items={[
+            'We do not perform criminal background checks on all users.',
+            'We do not guarantee the identity, honesty, or intentions of any user.',
+            'Any meeting with another user is undertaken at your own risk.',
+            'You are responsible for your personal safety during online and offline interactions.',
+          ]}
+        />
+        <p>We strongly recommend:</p>
+        <List
+          items={[
+            'Meeting in public locations.',
+            'Informing friends or family before meeting someone.',
+            'Avoiding sharing financial information.',
+            'Reporting suspicious behavior immediately.',
+          ]}
+        />
+      </Section>
+
+      <Section heading="8. Content &amp; Profile Photos">
+        <p>
+          By uploading content to {site.name}, you grant us a worldwide,
+          non-exclusive, royalty-free license to:
+        </p>
+        <List
+          items={[
+            'Display your content within the Platform.',
+            'Promote the Platform through marketing materials.',
+            'Improve and operate our services.',
+          ]}
+        />
+        <p>You retain ownership of your content.</p>
+        <p>We reserve the right to remove content that:</p>
+        <List
+          items={[
+            'Violates these Terms.',
+            'Is misleading or fraudulent.',
+            'Contains nudity or explicit material.',
+            'Contains hate speech.',
+            'Promotes illegal activities.',
+          ]}
+        />
+      </Section>
+
+      <Section heading="9. Messaging &amp; Communications">
+        <p>You consent to receiving:</p>
+        <List
+          items={[
+            'Account notifications',
+            'Verification updates',
+            'Security alerts',
+            'Service announcements',
+            'Product updates',
+            'Promotional communications (where permitted by law)',
+          ]}
+        />
+        <p>You may opt out of marketing communications at any time.</p>
+      </Section>
+
+      <Section heading="10. Premium Membership &amp; Payments">
+        <p>{site.name} may offer premium subscriptions and paid features.</p>
+        <p>By purchasing a subscription:</p>
+        <List
+          items={[
+            'You authorize recurring billing where applicable.',
+            'Subscription fees are charged through the selected payment method.',
+            'Pricing may change with prior notice.',
+            'Taxes may apply depending on your location.',
+          ]}
+        />
+        <p>Unless required by law:</p>
+        <List
+          items={[
+            'Payments are non-refundable.',
+            'Partially used subscriptions are non-refundable.',
+            'Account removal does not automatically cancel subscriptions.',
+          ]}
+        />
+        <p>
+          Users must manage subscription cancellation through the relevant app
+          store or payment provider.
+        </p>
+      </Section>
+
+      <Section heading="11. Refund Policy">
+        <p>Generally, all purchases are final.</p>
+        <p>Refund requests may be considered only when:</p>
+        <List
+          items={[
+            'Required under applicable law.',
+            'Duplicate billing occurred.',
+            'A technical issue prevented delivery of a purchased feature.',
+          ]}
+        />
+        <p>
+          {site.name} reserves sole discretion in determining refund
+          eligibility.
+        </p>
+      </Section>
+
+      <Section heading="12. Account Suspension &amp; Termination">
+        <p>
+          We reserve the right to suspend, restrict, or permanently terminate
+          accounts that:
+        </p>
+        <List
+          items={[
+            'Violate these Terms.',
+            'Misrepresent identity or employment.',
+            'Engage in abusive conduct.',
+            'Create safety concerns.',
+            'Attempt to circumvent platform rules.',
+          ]}
+        />
+        <p>Termination may occur without prior notice.</p>
+      </Section>
+
+      <Section heading="13. Intellectual Property">
+        <p>
+          All rights, titles, and interests in {site.name}, including:
+        </p>
+        <List
+          items={[
+            'Branding',
+            'Logos',
+            'Software',
+            'Design',
+            'Features',
+            'Content',
+          ]}
+        />
+        <p>
+          remain the exclusive property of {site.name} and its licensors.
+        </p>
+        <p>
+          Users may not copy, distribute, modify, reproduce, or exploit any
+          part of the Platform without written permission.
+        </p>
+      </Section>
+
+      <Section heading="14. Disclaimer of Warranties">
+        <p>
+          The Platform is provided on an &quot;as-is&quot; and
+          &quot;as-available&quot; basis.
+        </p>
+        <p>{site.name} does not guarantee:</p>
         <List
           items={[
             'Successful matches',
-            'Continuous service',
-            'Accuracy of content',
+            'Compatibility between users',
+            'Continuous service availability',
+            'Error-free functionality',
+            'Accuracy of user-generated content',
           ]}
         />
-        <p>Use is at your own risk.</p>
+        <p>Your use of the Platform is entirely at your own risk.</p>
       </Section>
 
-      <Section heading="11. Limitation of Liability">
-        <p>To the extent permitted by law, we are not liable for:</p>
+      <Section heading="15. Limitation of Liability">
+        <p>
+          To the maximum extent permitted by law, {site.name}, its founders,
+          employees, affiliates, and partners shall not be liable for:
+        </p>
         <List
           items={[
-            'Indirect or consequential damages',
-            'Loss of data or profits',
-            'User interactions or offline conduct',
+            'Indirect damages',
+            'Consequential damages',
+            'Emotional distress',
+            'Loss of income',
+            'Loss of opportunity',
+            'Personal disputes between users',
+            'Offline incidents arising from user interactions',
           ]}
         />
+        <p>
+          Our maximum liability shall not exceed the amount paid by you to{' '}
+          {site.name} during the preceding twelve (12) months.
+        </p>
       </Section>
 
-      <Section heading="12. Indemnity">
-        <p>You agree to indemnify {site.name} against claims arising from:</p>
+      <Section heading="16. Indemnification">
+        <p>
+          You agree to indemnify and hold harmless {site.name}, its directors,
+          employees, affiliates, and partners against any claims, damages,
+          liabilities, losses, costs, and legal expenses arising from:
+        </p>
         <List
           items={[
-            'Your use of the App',
-            'Your Content',
-            'Your violation of these Terms',
+            'Your use of the Platform.',
+            'Your content.',
+            'Your interactions with other users.',
+            'Your violation of these Terms.',
           ]}
         />
       </Section>
 
-      <Section heading="13. Termination">
-        <p>You may delete your Account at any time.</p>
-        <p>We may suspend or terminate your Account if:</p>
+      <Section heading="17. Third-Party Services">
+        <p>
+          The Platform may integrate with or link to third-party services.
+        </p>
+        <p>{site.name} is not responsible for:</p>
         <List
           items={[
-            'You violate these Terms',
-            'Your conduct is harmful to the platform or users',
+            'Third-party content',
+            'External websites',
+            'Payment providers',
+            'Advertisers',
+            'Linked services',
           ]}
         />
-        <p>Certain provisions will survive termination.</p>
-      </Section>
-
-      <Section heading="14. Dispute Resolution">
         <p>
-          Disputes will be resolved through arbitration or applicable legal
-          processes.
-        </p>
-        <p>
-          You agree to resolve disputes individually where permitted by law.
+          Your interactions with third parties are governed by their own
+          policies and terms.
         </p>
       </Section>
 
-      <Section heading="15. Changes to Terms">
-        <p>We may update these Terms from time to time.</p>
+      <Section heading="18. Privacy">
         <p>
-          Continued use of the App constitutes acceptance of updated Terms.
+          Your use of {site.name} is also governed by our Privacy Policy. By
+          using the Platform, you consent to the collection, use, and
+          processing of information as described in the Privacy Policy.
         </p>
       </Section>
 
-      <Section heading="16. Governing Law">
+      <Section heading="19. Governing Law">
         <p>
-          These Terms are governed by applicable laws based on your
-          jurisdiction.
+          These Terms shall be governed by and construed in accordance with the
+          laws of India.
+        </p>
+        <p>
+          Any disputes arising from these Terms shall be subject to the
+          exclusive jurisdiction of the courts located in Bengaluru, Karnataka,
+          India.
         </p>
       </Section>
 
-      <Section heading="17. Contact">
-        <p>For questions or concerns:</p>
+      <Section heading="20. Contact Us">
         <p>
+          For questions, concerns, legal notices, or support requests, contact:
+        </p>
+        <p>
+          <strong>Coffee After Work Support</strong>
+          <br />
+          Email:{' '}
           <a
             className="text-brand underline"
             href={`mailto:${site.contactEmail}`}
           >
             {site.contactEmail}
           </a>
+        </p>
+        <p>
+          <strong>Important Notice:</strong> {site.name} is designed to
+          facilitate introductions and conversations between professionals. We
+          do not guarantee relationships, friendships, dates, or any specific
+          outcomes from using the Platform. Users remain solely responsible for
+          their actions, decisions, and interactions both online and offline.
         </p>
       </Section>
     </LegalPage>

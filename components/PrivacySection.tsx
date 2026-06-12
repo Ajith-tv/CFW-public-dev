@@ -54,7 +54,7 @@ export default function PrivacySection() {
       ref={ref}
       className="flex min-h-svh items-center bg-[#FDFBF7] py-20 sm:py-28 overflow-hidden"
     >
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 sm:px-10 lg:grid-cols-2 lg:gap-20">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20">
         {/* Image — slides in from the left */}
         <motion.div
           style={hydrated ? { x: imgX, opacity: imgOpacity } : undefined}
