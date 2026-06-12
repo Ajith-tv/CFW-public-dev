@@ -113,10 +113,6 @@ const faqs = [
     a: 'We use reasonable technical and organizational measures, including encrypted storage of credentials, and we never sell your personal information. See our Privacy Policy for details.',
   },
   {
-    q: 'How do I cancel a subscription?',
-    a: 'Subscriptions are managed through the App Store or Google Play. Note that deleting the app does not cancel an active subscription.',
-  },
-  {
     q: 'How do I report another user?',
     a: `Open the profile, tap the three-dot menu in the top corner, and select Report. You can also email ${site.contactEmail} with details. We review all reports and take action to keep the community safe.`,
   },

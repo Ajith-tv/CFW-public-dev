@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useLayoutEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'motion/react'
 import { site } from '@/lib/site'
@@ -16,12 +16,14 @@ const easeOut = [0.16, 1, 0.3, 1] as const
 export default function Home() {
   const [splash, setSplash] = useState<'showing' | 'hiding' | 'hidden'>('showing')
 
-  // Only play the splash once per browser session
-  useLayoutEffect(() => {
-    if (sessionStorage.getItem('splash-shown')) {
-      setSplash('hidden')
-    } else {
-      sessionStorage.setItem('splash-shown', '1')
+  // The splash plays on every load, so always start the page from the top:
+  // stop the browser restoring the previous scroll position on refresh.
+  useEffect(() => {
+    const previous = history.scrollRestoration
+    history.scrollRestoration = 'manual'
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    return () => {
+      history.scrollRestoration = previous
     }
   }, [])
 

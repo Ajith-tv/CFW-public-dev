@@ -18,6 +18,12 @@ type HeaderTheme = 'transparent' | 'light' | 'red'
 export default function Header() {
   const pathname = usePathname()
   const [theme, setTheme] = useState<HeaderTheme>('light')
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // Close the mobile menu when navigating to another page
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,15 +79,17 @@ export default function Header() {
               }`}
             />
             <span
-              className={`hidden truncate text-base font-bold min-[480px]:block sm:text-lg transition-colors duration-500 ${
+              className={`truncate text-base font-bold sm:text-lg transition-colors duration-500 ${
                 onDark ? 'text-white' : 'text-ink'
               }`}
             >
               {site.name}
             </span>
           </Link>
+
+          {/* Desktop: pill nav */}
           <nav
-            className={`flex shrink-0 items-center gap-1 rounded-full border p-1 sm:gap-2 transition-all duration-500 ${
+            className={`hidden shrink-0 items-center gap-2 rounded-full border p-1 sm:flex transition-all duration-500 ${
               onDark
                 ? 'border-white/20 bg-white/10 backdrop-blur-md'
                 : 'border-stone-200 bg-white/70'
@@ -93,7 +101,7 @@ export default function Header() {
                 <Link
                   key={href}
                   href={href}
-                  className={`rounded-full px-2 py-1.5 text-xs font-medium transition-colors duration-300 min-[400px]:px-3 sm:px-4 sm:text-sm ${
+                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-300 ${
                     active
                       ? theme === 'red'
                         ? 'bg-cream text-brand shadow-sm'
@@ -108,8 +116,75 @@ export default function Header() {
               )
             })}
           </nav>
+
+          {/* Mobile: hamburger toggling a popover */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border sm:hidden transition-all duration-500 ${
+              onDark
+                ? 'border-white/20 bg-white/10 text-white backdrop-blur-md'
+                : 'border-stone-200 bg-white/70 text-ink'
+            }`}
+          >
+            <span className="relative block h-3.5 w-4.5" aria-hidden>
+              <span
+                className={`absolute left-0 top-0 h-0.5 w-full rounded-full bg-current transition-transform duration-300 ${
+                  menuOpen ? 'translate-y-1.5 rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1.5 h-0.5 w-full rounded-full bg-current transition-opacity duration-300 ${
+                  menuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-3 h-0.5 w-full rounded-full bg-current transition-transform duration-300 ${
+                  menuOpen ? '-translate-y-1.5 -rotate-45' : ''
+                }`}
+              />
+            </span>
+          </button>
+        </div>
+
+        {/* Mobile popover */}
+        <div
+          className={`absolute right-4 top-full mt-2 w-48 origin-top-right rounded-2xl border border-stone-200 bg-white p-2 shadow-xl transition-all duration-200 sm:hidden ${
+            menuOpen
+              ? 'pointer-events-auto scale-100 opacity-100'
+              : 'pointer-events-none scale-95 opacity-0'
+          }`}
+        >
+          {links.map(({ href, label }) => {
+            const active = pathname === href
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className={`block rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${
+                  active
+                    ? 'bg-brand text-cream'
+                    : 'text-stone-600 hover:bg-cream-soft hover:text-brand'
+                }`}
+              >
+                {label}
+              </Link>
+            )
+          })}
         </div>
       </header>
+
+      {/* Mobile: tap anywhere outside the popover to close it */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-20 sm:hidden"
+          onClick={() => setMenuOpen(false)}
+          aria-hidden
+        />
+      )}
 
       {/* Spacer: only on non-home pages so content isn't hidden behind the fixed bar */}
       {pathname !== '/' && (

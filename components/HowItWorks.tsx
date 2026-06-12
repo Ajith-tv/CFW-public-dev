@@ -29,7 +29,7 @@ const STEPS = [
     body: 'Fill out your cards with hobbies, work-life balance goals, and dating preferences.',
   },
   {
-    title: 'Filter coffee date',
+    title: 'Coffee date',
     body: 'Select date suggestions near transit lines or key offices to coordinate meetings easily.',
   },
 ]
