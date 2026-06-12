@@ -119,7 +119,7 @@ export default function Home() {
             alt="Dating app built for working professionals"
             fill
             priority
-            className="object-cover"
+            className="object-cover object-[67%_center] sm:object-center"
           />
           {/* Bottom-to-top dark gradient overlay to ensure text readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent z-10" />
@@ -157,23 +157,23 @@ export default function Home() {
         <div className="sticky top-0 h-svh flex items-center justify-center overflow-hidden">
           <motion.div
             style={{ borderRadius: cardRadius, width: cardWidth, height: cardHeight }}
-            className="bg-ink relative overflow-hidden flex flex-col items-center justify-center px-6 text-center text-cream"
+            className="bg-ink relative overflow-hidden flex flex-col items-center justify-center gap-6 px-6 py-10 text-center text-cream sm:px-8 sm:py-14"
           >
             {/* Abstract blobs */}
             <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-brand/25 blur-3xl" />
             <div className="absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-brand-light/15 blur-3xl" />
 
-            <div className="relative z-10 flex flex-col items-center">
+            <div className="relative z-10 flex w-full flex-col items-center gap-6 px-4 sm:px-0">
               <div className="flex h-20 w-20 items-center justify-center rounded-2xl shadow-md border border-cream/15">
                 <div className="relative h-11 w-11">
                   <Image src="/logo.png" alt="" fill className="object-contain" />
                 </div>
               </div>
-              <h2 className="mt-6 text-3xl font-bold sm:text-4xl text-cream-soft">
+              <h2 className="text-3xl font-bold sm:text-4xl text-cream-soft">
                 Built for meaningful connections.
               </h2>
-              <p className="mx-auto mt-4 max-w-md text-cream/80 text-sm sm:text-base leading-relaxed">
-                Connect with ambitious professionals who value depth over small talk. No swiping games, just genuine people looking for something real and lasting.
+              <p className="mx-auto max-w-xl text-cream/80 text-sm sm:text-base leading-relaxed">
+                Connect with professionals who are looking for something real. Join a community of professionals who value authenticity, meaningful conversations, and relationships built on mutual respect and shared aspirations.
               </p>
               <StoreButtons />
             </div>
