@@ -16,7 +16,7 @@ export default function Privacy() {
       <p>
         This Privacy Policy explains how {site.legalEntity} (&quot;we&quot;,
         &quot;us&quot;) collects, uses, and shares information about you when
-        you use the {site.name} mobile application, website, and related
+        you use the Coffee After Work mobile application, website, and related
         services (the &quot;Service&quot;). By using the Service, you agree to
         the practices described here.
       </p>

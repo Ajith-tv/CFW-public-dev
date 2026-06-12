@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { motion } from 'motion/react'
+import { motion, useScroll, useTransform, easeInOut } from 'motion/react'
 import { site } from '@/lib/site'
-import ScrollReveal from '@/components/ScrollReveal'
 import ChaosSection from '@/components/ChaosSection'
 import WhyWeExist from '@/components/WhyWeExist'
 import HowItWorks from '@/components/HowItWorks'
@@ -14,11 +13,15 @@ import StoreButtons from '@/components/StoreButtons'
 const easeOut = [0.16, 1, 0.3, 1] as const
 
 export default function Home() {
-  const [splash, setSplash] = useState<'showing' | 'hiding' | 'hidden'>('showing')
+  const [splash, setSplash] = useState<'showing' | 'hiding' | 'hidden'>(() =>
+    typeof sessionStorage !== 'undefined' && sessionStorage.getItem('splashSeen')
+      ? 'hidden'
+      : 'showing'
+  )
 
-  // The splash plays on every load, so always start the page from the top:
-  // stop the browser restoring the previous scroll position on refresh.
+  // Only reset scroll and lock when splash is actually playing
   useEffect(() => {
+    if (splash !== 'showing') return
     const previous = history.scrollRestoration
     history.scrollRestoration = 'manual'
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -37,6 +40,7 @@ export default function Home() {
     } else if (splash === 'hiding') {
       const timer2 = setTimeout(() => {
         setSplash('hidden')
+        sessionStorage.setItem('splashSeen', '1')
       }, 800)
       return () => clearTimeout(timer2)
     }
@@ -59,6 +63,15 @@ export default function Home() {
       setSplash('hiding')
     }
   }
+
+  const footerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ['start 65%', 'start 0%'],
+  })
+  const cardRadius = useTransform(scrollYProgress, [0, 1], [28, 0], { ease: easeInOut })
+  const cardWidth = useTransform(scrollYProgress, [0, 1], ['86%', '100%'], { ease: easeInOut })
+  const cardHeight = useTransform(scrollYProgress, [0, 1], ['70vh', '100vh'], { ease: easeInOut })
 
   return (
     <div className="relative min-h-screen bg-[#FDFBF7]">
@@ -139,35 +152,33 @@ export default function Home() {
       {/* Built with privacy in mind — scroll-scrubbed statement */}
       <PrivacySection />
 
-      {/* Footer CTA */}
-      <section
-        id="download"
-        className="mx-auto flex min-h-svh max-w-7xl items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-20"
-      >
-        <ScrollReveal
-          direction="up"
-          className="relative w-full overflow-hidden rounded-3xl bg-ink py-12 px-6 text-cream shadow-xl sm:py-16 sm:px-12"
-        >
-          {/* Abstract blobs */}
-          <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-brand/25 blur-3xl" />
-          <div className="absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-brand-light/15 blur-3xl" />
-          
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-2xl shadow-md border border-cream/15">
-              <div className="relative h-11 w-11">
-                <Image src="/logo.png" alt="" fill className="object-contain" />
+      {/* Footer CTA — scroll-driven expand */}
+      <section ref={footerRef} id="download" className="relative h-[200svh] bg-[#FDFBF7]">
+        <div className="sticky top-0 h-svh flex items-center justify-center overflow-hidden">
+          <motion.div
+            style={{ borderRadius: cardRadius, width: cardWidth, height: cardHeight }}
+            className="bg-ink relative overflow-hidden flex flex-col items-center justify-center px-6 text-center text-cream"
+          >
+            {/* Abstract blobs */}
+            <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-brand/25 blur-3xl" />
+            <div className="absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-brand-light/15 blur-3xl" />
+
+            <div className="relative z-10 flex flex-col items-center">
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl shadow-md border border-cream/15">
+                <div className="relative h-11 w-11">
+                  <Image src="/logo.png" alt="" fill className="object-contain" />
+                </div>
               </div>
+              <h2 className="mt-6 text-3xl font-bold sm:text-4xl text-cream-soft">
+                Built for meaningful connections.
+              </h2>
+              <p className="mx-auto mt-4 max-w-md text-cream/80 text-sm sm:text-base leading-relaxed">
+                Connect with ambitious professionals who value depth over small talk. No swiping games, just genuine people looking for something real and lasting.
+              </p>
+              <StoreButtons />
             </div>
-            <h2 className="mt-6 text-3xl font-bold sm:text-4xl text-cream-soft">
-              Ready for better conversations?
-            </h2>
-            <p className="mx-auto mt-4 max-w-md text-cream/80 text-sm sm:text-base leading-relaxed">
-              We are finalizing {site.name} for our upcoming metropolitan launch. Subscribe to get early beta access.
-            </p>
-            
-            <StoreButtons />
-          </div>
-        </ScrollReveal>
+          </motion.div>
+        </div>
       </section>
     </div>
   )

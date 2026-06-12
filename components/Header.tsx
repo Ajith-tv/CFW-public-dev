@@ -13,7 +13,7 @@ const links = [
   { href: '/privacy', label: 'Privacy' },
 ]
 
-type HeaderTheme = 'transparent' | 'light' | 'red'
+type HeaderTheme = 'transparent' | 'light' | 'red' | 'dark'
 
 export default function Header() {
   const pathname = usePathname()
@@ -41,6 +41,15 @@ export default function Header() {
           return
         }
       }
+      // Dark while the black footer expand section is under the nav
+      const darkSection = document.getElementById('download')
+      if (darkSection) {
+        const rect = darkSection.getBoundingClientRect()
+        if (rect.top <= 65 && rect.bottom >= 65) {
+          setTheme('dark')
+          return
+        }
+      }
       setTheme('light')
     }
     handleScroll()
@@ -52,7 +61,7 @@ export default function Header() {
     }
   }, [pathname])
 
-  // Transparent and red both sit on dark backgrounds — light text
+  // Transparent, red, and dark all sit on dark backgrounds — light text
   const onDark = theme !== 'light'
 
   return (
@@ -64,6 +73,8 @@ export default function Header() {
             ? 'bg-transparent border-b border-transparent'
             : theme === 'red'
             ? 'bg-brand/95 border-b border-transparent backdrop-blur-md'
+            : theme === 'dark'
+            ? 'bg-ink/95 border-b border-transparent backdrop-blur-md'
             : 'bg-white/90 border-b border-transparent backdrop-blur-md'
         }`}
       >
