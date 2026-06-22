@@ -1,67 +1,131 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { site } from '@/lib/site'
+import {
+  categories,
+  articles,
+  articlesByCategory,
+  categoryHref,
+  articleHref,
+  popularArticles,
+} from '@/lib/support'
+import SupportSearch, { type SearchItem } from '@/components/SupportSearch'
 
 export const metadata: Metadata = {
-  title: 'Support',
-  description: `Get help with ${site.name} — FAQs, account questions, and contact options.`,
+  title: 'Help Center',
+  description: `Get help with ${site.name} — guides, account questions, safety, privacy, and how to contact us.`,
 }
 
+const searchItems: SearchItem[] = articles.map((a) => ({
+  slug: a.slug,
+  title: a.title,
+  summary: a.summary,
+  category: a.category,
+  keywords: a.keywords,
+}))
+
 export default function Support() {
+  const popular = popularArticles()
+
   return (
     <div className="bg-[#FDFBF7]">
       {/* Hero */}
-      <section className="mx-auto max-w-3xl px-5 pt-24 pb-12 sm:px-10 sm:pt-32 sm:pb-16">
-        <h1 className="text-4xl font-bold tracking-tight text-ink leading-[1.05] sm:text-5xl md:text-6xl">
-          We are here to help.
-        </h1>
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-stone-600 sm:text-lg">
-          Questions about your account, verification, or privacy? Start with the
-          FAQs below, or reach out to us directly.
+      <section className="mx-auto max-w-3xl px-5 pt-24 pb-8 text-center sm:px-10 sm:pt-32 sm:pb-10">
+        <p className="text-sm font-semibold uppercase tracking-wide text-brand">
+          Help Center
         </p>
-        <a
-          href={`mailto:${site.contactEmail}`}
-          className="group mt-8 inline-flex items-center gap-2.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-cream shadow-lg shadow-brand/20 transition-colors hover:bg-brand-dark sm:text-base"
-        >
-          {site.contactEmail}
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            aria-hidden
-          >
-            <path d="M7 17 17 7M8 7h9v9" />
-          </svg>
-        </a>
+        <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink leading-[1.05] sm:text-5xl md:text-6xl">
+          How can we help?
+        </h1>
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-stone-600 sm:text-lg">
+          Browse the topics below, search for an answer, or reach our team directly.
+        </p>
       </section>
 
-      {/* FAQs */}
-      <section className="mx-auto max-w-3xl px-5 py-12 sm:px-10 sm:py-16">
-        <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-          Frequently asked questions
-        </h2>
-        <div className="mt-8 divide-y divide-stone-200/80 border-t border-stone-200/80">
-          {faqs.map((f) => (
-            <details key={f.q} className="group py-5 sm:py-6">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-ink sm:text-lg">
-                {f.q}
-                <span className="grid h-6 w-6 shrink-0 place-items-center text-lg font-normal text-brand transition-transform group-open:rotate-45">
-                  +
-                </span>
-              </summary>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600 sm:text-base">
-                {f.a}
-              </p>
-            </details>
-          ))}
-        </div>
+      {/* Search + categories + popular */}
+      <section className="mx-auto max-w-5xl px-5 pb-12 sm:px-8 sm:pb-16">
+        <SupportSearch items={searchItems}>
+          {/* Category tiles */}
+          <div className="mt-12 grid gap-5 sm:grid-cols-3">
+            {categories.map((category) => {
+              const count = articlesByCategory(category.id).length
+              return (
+                <Link
+                  key={category.id}
+                  href={categoryHref(category.id)}
+                  className="group flex flex-col rounded-3xl border border-stone-200 bg-white p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg"
+                >
+                  <span className="flex items-start justify-between gap-3">
+                    <span className="text-xl font-bold text-ink transition-colors group-hover:text-brand">
+                      {category.title}
+                    </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mt-1 h-5 w-5 shrink-0 text-stone-300 transition-all group-hover:translate-x-0.5 group-hover:text-brand"
+                      aria-hidden
+                    >
+                      <path d="m9 18 6-6-6-6" />
+                    </svg>
+                  </span>
+                  <span className="mt-3 flex-1 text-sm leading-relaxed text-stone-500">
+                    {category.blurb}
+                  </span>
+                  <span className="mt-5 text-xs font-semibold uppercase tracking-wide text-stone-400">
+                    {count} {count === 1 ? 'article' : 'articles'}
+                  </span>
+                </Link>
+              )
+            })}
+          </div>
+
+          {/* Popular articles */}
+          {popular.length > 0 && (
+            <div className="mt-14">
+                <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+                  Popular articles
+                </h2>
+                <ul className="mt-4 divide-y divide-stone-200/80 border-y border-stone-200/80">
+                  {popular.map((a) => (
+                    <li key={a.slug}>
+                      <Link
+                        href={articleHref(a.slug)}
+                        className="group flex items-center justify-between gap-4 py-4"
+                      >
+                        <span className="min-w-0">
+                          <span className="block font-semibold text-ink transition-colors group-hover:text-brand">
+                            {a.title}
+                          </span>
+                          <span className="mt-1 block text-sm text-stone-500">
+                            {a.summary}
+                          </span>
+                        </span>
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="mt-1 h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-0.5 group-hover:text-brand"
+                          aria-hidden
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </SupportSearch>
       </section>
 
-      {/* Contact card — matches homepage footer CTA */}
+      {/* Contact card */}
       <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 sm:pb-28">
         <div className="relative overflow-hidden rounded-3xl bg-ink px-6 py-14 text-center text-cream shadow-xl sm:px-12 sm:py-16">
           <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-brand/25 blur-3xl" />
@@ -72,7 +136,8 @@ export default function Support() {
               Still need help?
             </h2>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-cream/80 sm:text-base">
-              Our team usually responds within 1–2 business days.
+              Can’t find what you’re looking for? Our team usually responds within 1–2 business
+              days.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <a
@@ -94,26 +159,3 @@ export default function Support() {
     </div>
   )
 }
-
-const faqs = [
-  {
-    q: 'Why do I need a corporate email to sign up?',
-    a: `${site.name} is built for working professionals. Corporate email verification keeps the community genuine and trusted. Personal email providers such as Gmail or Yahoo are not permitted.`,
-  },
-  {
-    q: 'My company domain is not supported. What can I do?',
-    a: 'You can request access for your company by contacting support. We approve new domains based on user demand, company credibility, and platform safety.',
-  },
-  {
-    q: 'How do I delete my account?',
-    a: 'You can delete your account at any time from the settings screen in the app. Some information may be retained temporarily as described in our Privacy Policy.',
-  },
-  {
-    q: 'How is my data protected?',
-    a: 'We use reasonable technical and organizational measures, including encrypted storage of credentials, and we never sell your personal information. See our Privacy Policy for details.',
-  },
-  {
-    q: 'How do I report another user?',
-    a: `Open the profile, tap the three-dot menu in the top corner, and select Report. You can also email ${site.contactEmail} with details. We review all reports and take action to keep the community safe.`,
-  },
-]

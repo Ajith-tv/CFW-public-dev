@@ -9,7 +9,8 @@ export const site = {
   privacyEmail: 'support@coffeeafterwork.com',
   // Dates shown on legal pages (YYYY-MM-DD -> displayed nicely)
   termsLastUpdated: '2026-06-01',
-  privacyLastUpdated: '2026-06-09',
+  privacyLastUpdated: '2026-06-19',
+  helpLastUpdated: '2026-06-22',
   // Minimum age to use the service
   minimumAge: 21,
 } as const
