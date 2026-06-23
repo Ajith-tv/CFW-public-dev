@@ -49,9 +49,9 @@ export const articles: Article[] = [
   // ── Getting started ────────────────────────────────────────────────────────
   {
     slug: 'how-coffee-after-work-works',
-    title: 'How Coffee After Work works',
+    title: 'How it works',
     summary:
-      'From signing up with your work email to your first match — a quick tour of the app.',
+      'From signing up with your work email to your first conversation — a quick tour of the app.',
     category: 'getting-started',
     lastUpdated: UPDATED,
     keywords: ['guide', 'overview', 'tour', 'how to use', 'basics'],

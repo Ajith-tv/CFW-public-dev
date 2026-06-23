@@ -15,7 +15,7 @@ export default function PhotoVerification() {
   return (
     <ArticlePage slug={SLUG}>
       <p>
-        To keep {site.name} genuine, every new profile is verified before it goes live. During
+        To keep {site.name}{' '}genuine, every new profile is verified before it goes live. During
         sign-up you take a quick selfie that we compare against your profile photos. Here&apos;s
         what that means.
       </p>

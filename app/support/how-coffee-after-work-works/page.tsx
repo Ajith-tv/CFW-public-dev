@@ -7,8 +7,8 @@ import { Section } from '@/components/LegalPage'
 const SLUG = 'how-coffee-after-work-works'
 
 export const metadata: Metadata = {
-  title: 'How Coffee After Work works',
-  description: `A quick tour of ${site.name} — from signing up with your work email to your first match.`,
+  title: 'How it works',
+  description: `A quick tour of ${site.name} — from signing up with your work email to your first conversation.`,
 }
 
 export default function HowItWorks() {
@@ -21,8 +21,9 @@ export default function HowItWorks() {
 
       <Section heading="1. Sign up with your work email">
         <p>
-          You join with your corporate email rather than a personal one. Verifying a work email
-          keeps the community made up of genuine working professionals. Curious why?{' '}
+          {site.name} is exclusively for working professionals. To join, you&apos;ll need to
+          register using your corporate email address. This helps us build a trusted community
+          where every member is connected to a verified workplace. Curious why?{' '}
           <Link className="text-brand underline" href="/support/why-a-work-email">
             Read more about the work-email requirement
           </Link>
@@ -30,12 +31,12 @@ export default function HowItWorks() {
         </p>
       </Section>
 
-      <Section heading="2. Verify it's really you">
+      <Section heading="2. Verify your identity">
         <p>
-          During sign-up you take a quick verification selfie that we match against your profile
-          photos. This confirms you are a real person and the same person shown in your photos,
-          which keeps fake and impersonated profiles off the app. Your selfie is never shown to
-          anyone. See{' '}
+          Complete a mandatory selfie verification during sign-up to confirm your identity and help
+          keep the community authentic. Your account will only be activated once verification is
+          successfully completed. Your verification selfie is reviewed privately, never shared with
+          other members, and automatically deleted after the verification process is complete. See{' '}
           <Link className="text-brand underline" href="/support/photo-verification">
             Photo verification explained
           </Link>
@@ -45,8 +46,10 @@ export default function HowItWorks() {
 
       <Section heading="3. Build your profile">
         <p>
-          Add a few clear photos and fill out your details and what you&apos;re looking for. A
-          fuller, verified profile is shown to more people and gets more likes. See{' '}
+          Add your photos, complete your profile details, and tell us what you&apos;re looking for.
+          Every profile is reviewed and verified by our team before it becomes visible. Once
+          approved, your profile will be shown to a wider pool of compatible professionals based on
+          your preferences and profile completeness. See{' '}
           <Link className="text-brand underline" href="/support/creating-your-profile">
             Creating your profile
           </Link>
@@ -54,25 +57,13 @@ export default function HowItWorks() {
         </p>
       </Section>
 
-      <Section heading="4. Like and match">
+      <Section heading="4. Start chatting">
         <p>
-          Like the profiles you&apos;re interested in from{' '}
-          <Link className="text-brand underline" href="/support/finding-people">
-            Spark and Discover
-          </Link>
-          . When you and someone else both like each other, it&apos;s a match — and only then can
-          the two of you start a conversation. More on{' '}
-          <Link className="text-brand underline" href="/support/how-matches-work">
-            how matches work
-          </Link>
-          .
-        </p>
-      </Section>
-
-      <Section heading="5. Start chatting">
-        <p>
-          Once you match, you can message right away — send GIFs, reveal photos when you&apos;re
-          both ready, and more. See{' '}
+          Every connection begins with conversation, not photos. Chat freely, share GIFs, and get
+          to know the person behind the profile. Once you&apos;ve had a meaningful conversation,
+          you&apos;ll unlock the ability to send a Photo Reveal request. When accepted by both
+          members, your profile photos become visible to each other, creating a more intentional
+          way to connect. See{' '}
           <Link className="text-brand underline" href="/support/messaging-your-matches">
             Messaging your matches
           </Link>
